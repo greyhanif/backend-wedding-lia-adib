@@ -1,7 +1,8 @@
 import { Sequelize } from "sequelize";
 
-const host = "localhost";
-const db = new Sequelize("wis_db", "root", "", {
+const host = "wisdb.czqb8shqxxgj.ap-southeast-1.rds.amazonaws.com";
+
+const db = new Sequelize("wis_db", "root", "#Nashaly.97", {
   host: host,
   dialect: "mysql",
   timezone: "+07:00",
