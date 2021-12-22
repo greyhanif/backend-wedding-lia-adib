@@ -1,0 +1,131 @@
+@page {
+  size: A4;
+  margin: 0;
+}
+@media screen, print {
+  html,
+  body {
+    width: 210mm;
+    height: 297mm;
+    margin-top: 2.5mm;
+    margin-left: 2.5mm;
+    margin-right: 2.5mm;
+    -webkit-print-color-adjust: exact;
+  }
+  /* ... the rest of the rules ... */
+
+  #grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
+
+  .container {
+    margin-left: 1mm;
+    margin-top: 2.5mm;
+    text-align: center;
+  }
+
+  .bride {
+    font-family: "Great Vibes", cursive;
+    font-size: 5mm;
+  }
+  .wedding {
+    font-size: 2mm;
+    font-family: SF Pro Mono;
+  }
+
+  .name {
+    font-family: SF Pro Text;
+    /* color: #422004; */
+    font-size: 2.5mm;
+    font-weight: 500;
+    margin-top: 3mm;
+  }
+
+  .title-name {
+    font-family: SF Pro Text;
+    color: #535353;
+    font-size: 1.5mm;
+    font-weight: 100;
+  }
+
+  .top-border {
+    background-color: #6b0f10;
+  }
+
+  .card {
+    /* width: 85.6mm;
+    height: 53.98mm; */
+    height: 85.6mm;
+    width: 53.98mm;
+    border-radius: 2mm;
+    background-color: #fcf7f1;
+    background-image: url("bg-cover.png");
+    background-size: cover;
+  }
+
+  .qr {
+    width: 36mm;
+    margin-top: 2mm;
+  }
+
+  .title-card {
+    margin-top: 2mm;
+    /* margin-left: 5mm; */
+  }
+
+  .pass-card {
+    font-weight: bold;
+    font-size: 4mm;
+    background-color: #6b0f10;
+    color: #fcf7f1;
+    text-align: center;
+    height: 5.2mm;
+    border-top-left-radius: 2mm;
+    border-top-right-radius: 2mm;
+    padding: 3mm;
+  }
+
+  .code-ticket {
+    font-size: 4.5mm;
+    font-weight: bold;
+    margin-top: 1mm;
+  }
+
+  .code {
+    font-family: FXMatrix105MonoPica;
+    font-size: 2mm !important;
+  }
+
+  .line {
+    /* border-style: dotted; */
+    border-width: 0.1mm;
+  }
+
+  .mt-2 {
+    margin-top: 1mm;
+  }
+  .size10 {
+    font-size: 1mm;
+  }
+  .bold {
+    font-weight: bold;
+  }
+
+  .corner-left-top-element {
+    width: 30mm;
+    height: 30mm;
+    position: absolute;
+    opacity: 40%;
+  }
+
+  .corner-righ-bottom-element {
+    width: 30mm;
+    height: 30mm;
+    /* position: absolute; */
+    opacity: 40%;
+    transform: rotate(180deg);
+    bottom: 0;
+    right: 0;
+  }
+}
