@@ -1,7 +1,8 @@
 import { Sequelize } from "sequelize";
 
-const db = new Sequelize(`${process.env.DB_NAME}`, `${process.env.DB_USER_NAME}`, `${process.env.DB_PASSWORD}`, {
-  host: "localhost",
+const host = "localhost";
+const db = new Sequelize("wis_db", "root", "", {
+  host: host,
   dialect: "mysql",
   timezone: "+07:00",
   dialectOptions: {
