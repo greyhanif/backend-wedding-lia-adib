@@ -13,6 +13,7 @@ import { createRelationship, deleteRelationship, getRelationship, updateRelation
 import { getDetailForCounter } from "../controllers/Counter.js";
 import { getPrint } from "../controllers/Print.js";
 import { getAttendance, invitedCheckIn, invitedCheckOut } from "../controllers/Attendances.js";
+import { getGallery, getGalleryById, updateGallery, deleteGallery, createGallery } from "../controllers/Gallery.js";
 import { injectMetaVisitor } from "../controllers/InjectMeta.js";
 // import { getRe } from "../controllers/Dashboard.js";
 
@@ -34,6 +35,13 @@ router.get("/contacts/:id", verifyToken, getContactsById);
 router.post("/contacts", verifyToken, createContacts);
 router.put("/contacts/:id", verifyToken, updateContacts);
 router.delete("/contacts/:id", verifyToken, deleteContacts);
+
+// // Gallery
+router.get("/gallery", getGallery);
+router.get("/gallery/:id", getGalleryById);
+router.post("/gallery", createGallery);
+router.put("/gallery/:id", updateGallery);
+router.delete("/gallery/:id", deleteGallery);
 
 // // ticket
 router.get("/tickets", getTickets);
