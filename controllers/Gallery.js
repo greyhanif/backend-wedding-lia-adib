@@ -6,7 +6,7 @@ export const getGallery = async (req, res) => {
     const gallerys = await Gallery.findAll({
       order: [["id", "ASC"]],
     });
-    res.send(JSON.stringify(gallerys));
+    res.json(gallerys);
   } catch (error) {
     res.json(error);
     console.log(error);
@@ -21,7 +21,7 @@ export const getGalleryById = async (req, res) => {
         id: id,
       },
     });
-    res.send(JSON.stringify(gallerys));
+    res.json(gallerys);
   } catch (error) {
     res.json(error);
     console.log(error);
