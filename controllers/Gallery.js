@@ -1,5 +1,5 @@
 import Logs from "../models/LogModels.js";
-import Gallery from "../models/GalleryModels.js";
+import Gallery from "../models/Gallery.js";
 
 export const getGallery = async (req, res) => {
   try {

@@ -86,7 +86,7 @@ export const createTickets = async (req, res) => {
   const as = contact[0].as;
   const nameReplace = name.replace(/\s+/g, "+");
   const ticketCode = relationshipCode + "-" + ID();
-  const linkInvitation = `http://192.168.1.5:3001/rsvp/to/${nameReplace}`;
+  const linkInvitation = `${nameReplace}`;
   try {
     await Tickets.create({
       ticketCode: ticketCode,
