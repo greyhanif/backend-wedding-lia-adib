@@ -16,6 +16,7 @@ import Tickets from "./models/TicketModels.js";
 import Messages from "./models/MessageModels.js";
 import Relationship from "./models/RelationshipModels.js";
 import Attendances from "./models/AttendancesModels.js";
+import Gallery from "./models/GalleryModels.js";
 
 try {
   await db.authenticate();
@@ -27,6 +28,7 @@ try {
   await Messages.sync();
   await Relationship.sync();
   await Attendances.sync();
+  await Gallery.sync();
 } catch (error) {
   console.error(error);
 }
