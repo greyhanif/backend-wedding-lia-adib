@@ -9,7 +9,7 @@ export const getContacts = async (req, res) => {
       order: [["id", "ASC"]],
     });
     res.json(contacts);
-    console.log(`${moment().format("HH:mm:ss")} [CONTACTS] GET Data`);
+    console.log(`${moment().local().format("HH:mm:ss")} [CONTACTS] GET Data`);
   } catch (error) {
     res.json(error);
     console.log(error);
@@ -25,7 +25,7 @@ export const getContactsById = async (req, res) => {
       },
     });
     res.send(JSON.stringify(contacts));
-    console.log(`${moment().format("HH:mm:ss")} [CONTACTS] GET Data ID ${id}`);
+    console.log(`${moment().local().format("HH:mm:ss")} [CONTACTS] GET Data ID ${id}`);
   } catch (error) {
     res.json(error);
     console.log(error);
@@ -55,7 +55,7 @@ export const createContacts = async (req, res) => {
       code: "200",
       detail: ` ${name} asal ${city} ditambahnkan ke Contacts `,
     });
-    console.log(`${moment().format("HH:mm:ss")} [CONTACTS] CREATE Data ${name} - ${city}`);
+    console.log(`${moment().local().format("HH:mm:ss")} [CONTACTS] CREATE Data ${name} - ${city}`);
   } catch (error) {
     console.log(error);
   }
@@ -99,7 +99,7 @@ export const updateContacts = async (req, res) => {
       code: "200",
       detail: `mengubah ${name} asal ${city} pada daftar Contacts `,
     });
-    console.log(`${moment().format("HH:mm:ss")} [CONTACTS] UPDATE Data ${name} - ${city}`);
+    console.log(`${moment().local().format("HH:mm:ss")} [CONTACTS] UPDATE Data ${name} - ${city}`);
   } catch (error) {
     console.log(error);
   }
@@ -132,7 +132,7 @@ export const deleteContacts = async (req, res) => {
       code: "200",
       detail: `${name} asal ${city} telah dihapus pada Contacts `,
     });
-    console.log(`[CONTACTS] DELETE Data ID ${id}`);
+    console.log(`${moment().local().format("HH:mm:ss")} [CONTACTS] DELETE Data ID ${id}`);
   } catch (error) {
     console.log(error);
   }

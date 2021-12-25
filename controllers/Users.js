@@ -31,7 +31,7 @@ export const Register = async (req, res) => {
     });
     res.json({ message: "Register berhasil" });
     // console.log(`[USERS] REGISTER `);
-    console.log(`${moment().format("HH:mm:ss")} [USERS] REGISTER ${name} EMAIL${email} AS ${as}`);
+    console.log(`${moment().local().format("HH:mm:ss")} [USERS] REGISTER ${name} EMAIL${email} AS ${as}`);
   } catch (error) {
     console.log(error);
   }
@@ -90,7 +90,7 @@ export const Login = async (req, res) => {
       detail: `${name} sebagai ${as} telah LOGIN `,
     });
     // res.json({ message: "Register berhasil" });
-    console.log(`${moment().format("HH:mm:ss")} [USERS] LOGIN ${name} AS ${as}`);
+    console.log(`${moment().local().format("HH:mm:ss")} [USERS] LOGIN ${name} AS ${as}`);
   } catch (error) {
     console.log(error);
   }

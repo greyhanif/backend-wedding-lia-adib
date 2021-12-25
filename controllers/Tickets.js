@@ -27,7 +27,7 @@ export const getTicketsById = async (req, res) => {
       },
     });
     res.json(tickets);
-    console.log(`[TICKETS] GET Data ID ${id}`);
+    console.log(`${moment().local().format("HH:mm:ss")} [TICKETS] GET Data ID ${id}`);
   } catch (error) {
     res.json(error);
     console.log(error);
@@ -37,6 +37,7 @@ export const getTicketsById = async (req, res) => {
 export const getTicketsByCode = async (req, res) => {
   const code = req.params.code;
   if (!code.match(/[A-Z]{4}\-[A-Z0-9]{4}/g)) {
+    console.log(`${moment().local().format("HH:mm:ss")} [TICKETS] GET Data not compatible code`);
     return res.status(404).json({ message: "Ticket Code not compatible" });
   }
 
@@ -48,6 +49,7 @@ export const getTicketsByCode = async (req, res) => {
   // console.log(tickets);
 
   if (tickets.length === 0) {
+    console.log(`${moment().local().format("HH:mm:ss")} [TICKETS] GET Data not found`);
     return res.status(404).json({ message: "Ticket Code not found" });
   }
   const contactId = tickets[0].contactId;
@@ -59,7 +61,7 @@ export const getTicketsByCode = async (req, res) => {
       },
     });
     res.json(contacts);
-    console.log(`${moment().format("HH:mm:ss")} [TICKETS] GET Data by Code ${code}`);
+    console.log(`${moment().local().format("HH:mm:ss")} [TICKETS] GET Data by Code ${code}`);
   } catch (error) {
     console.log(error);
   }
@@ -117,7 +119,7 @@ export const createTickets = async (req, res) => {
       detail: `${name} dari ${city} nomor tiket ${ticketCode} telah dibuat`,
     });
     // res.json({ message: "Register berhasil" });
-    console.log(`${moment().format("HH:mm:ss")} [TICKETS] CREATE ${name} from ${city} ticket code ${ticketCode}`);
+    console.log(`${moment().local().format("HH:mm:ss")} [TICKETS] CREATE ${name} from ${city} ticket code ${ticketCode}`);
   } catch (error) {
     console.log(error);
   }

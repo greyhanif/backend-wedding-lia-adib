@@ -18,7 +18,7 @@ export const getPrint = async (req, res) => {
       // attributes: [ticketCode],
     });
     res.json(contacts);
-    console.log(`${moment().format("HH:mm:ss")} [PRINT] GET Data`);
+    console.log(`${moment().local().format("HH:mm:ss")} [PRINT] GET Data`);
   } catch (error) {
     res.json(error);
     console.log(error);

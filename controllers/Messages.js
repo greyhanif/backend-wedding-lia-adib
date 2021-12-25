@@ -67,7 +67,7 @@ export const createMessages = async (req, res) => {
       code: "400",
       detail: `${name} asal ${city} telah menambahkan pesan [${willBePresent}]`,
     });
-    console.log(`${moment().format("HH:mm:ss")} [MESSAGE] CREATE  ${name} dari ${city} telah menambahkan pesan. Status kehadiran [${willBePresent}]`);
+    console.log(`${moment().local().format("HH:mm:ss")} [MESSAGE] CREATE  ${name} dari ${city} telah menambahkan pesan. Status kehadiran [${willBePresent}]`);
   } catch (error) {
     console.log(error);
   }
@@ -108,7 +108,7 @@ export const updateMessages = async (req, res) => {
       code: "400",
       detail: `${name} asal ${city} telah mengubah pesan`,
     });
-    console.log(`${moment().format("HH:mm:ss")} [MESSAGE] UPDATE ${name} dari ${city} telah mengubah pesan. Status kehadiran [${willBePresent}]`);
+    console.log(`${moment().local().format("HH:mm:ss")} [MESSAGE] UPDATE ${name} dari ${city} telah mengubah pesan. Status kehadiran [${willBePresent}]`);
   } catch (error) {
     console.log(error);
   }
@@ -128,7 +128,7 @@ export const hiddenMessages = async (req, res) => {
       }
     );
     res.json({ message: "Message has been hidden" });
-    console.log(`${moment().format("HH:mm:ss")} [MESSAGE] HIDDEN ID ${id}`);
+    console.log(`${moment().local().format("HH:mm:ss")} [MESSAGE] HIDDEN ID ${id}`);
   } catch (error) {
     console.log(error);
   }

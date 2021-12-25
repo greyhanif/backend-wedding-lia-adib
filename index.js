@@ -20,9 +20,9 @@ import Attendances from "./models/AttendancesModels.js";
 import Gallery from "./models/Gallery.js";
 
 try {
-  console.log(`${moment().format("HH:mm:ss")} [DATABASE] Database Connecting...`);
+  console.log(`${moment().local().format("HH:mm:ss")} [DATABASE] Database Connecting...`);
   await db.authenticate();
-  console.log(`${moment().format("HH:mm:ss")} [DATABASE] Database Connected ✅`);
+  console.log(`${moment().local().format("HH:mm:ss")} [DATABASE] Database Connected`);
   await Users.sync();
   await Contacts.sync();
   await Logs.sync();
@@ -46,4 +46,4 @@ app.use(
 );
 app.use(router);
 
-app.listen(5000, () => console.log(`${moment().format("HH:mm:ss")} [SERVER] Server is running on port 5000`));
+app.listen(5000, () => console.log(`${moment().local().format("HH:mm:ss")} [SERVER] Server is running on port 5000`));
