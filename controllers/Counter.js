@@ -7,6 +7,7 @@ import Relationship from "../models/RelationshipModels.js";
 export const getDetailForCounter = async (req, res) => {
   const code = req.params.code;
   if (!code.match(/[A-Z]{4}\-[A-Z0-9]{4}/g)) {
+    console.log(`[COUNTER] GET ${code} not compatible`);
     return res.status(404).json({ message: "Ticket Code not compatible" });
   }
 
@@ -17,6 +18,7 @@ export const getDetailForCounter = async (req, res) => {
   });
 
   if (tickets.length === 0) {
+    console.log(`[COUNTER] GET Ticket not found`);
     return res.status(404).json({ message: "Ticket Code not found" });
   }
 
@@ -27,6 +29,7 @@ export const getDetailForCounter = async (req, res) => {
   });
 
   if (relationshipCode.length === 0) {
+    console.log(`[COUNTER] GET Ticket not found`);
     return res.status(404).json({ message: "Ticket Code not found" });
   }
 
@@ -44,6 +47,7 @@ export const getDetailForCounter = async (req, res) => {
       relationshipCode: relationshipCode,
     };
     res.json(payload);
+    console.log(`[COUNTER] GET ${id} found`);
   } catch (error) {
     console.log(error);
   }

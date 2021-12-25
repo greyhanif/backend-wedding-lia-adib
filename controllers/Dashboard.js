@@ -10,14 +10,14 @@ import Attendances from "../models/AttendancesModels.js";
 
 export const Dashboard = async (req, res) => {
   const slug = req.params.slug;
-  console.log(slug);
+  // console.log(slug);
   try {
     //Get ticket limit 5
     const tickets = await Tickets.findAll({
       limit: 5,
       order: [["updatedAt", "DESC"]],
     });
-    console.log(tickets);
+    // console.log(tickets);
 
     // Get contact limit 5
     const contacts = await Contacts.findAll({
@@ -107,7 +107,7 @@ export const Dashboard = async (req, res) => {
     // const payload = [countContacts, countTickets, countContactsCity, countTicketsRelationshipCode, countContactsFemale, countContactsMale, logs, contacts, tickets];
 
     res.json(payload);
-    console.log(res.contacts);
+    // console.log(res.contacts);
   } catch (error) {
     res.json(error);
     console.log(error);

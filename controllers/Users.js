@@ -28,6 +28,7 @@ export const Register = async (req, res) => {
       password: hashPassword,
     });
     res.json({ message: "Register berhasil" });
+    console.log(`[USERS] REGISTER ${name} email ${email} as ${as}`);
   } catch (error) {
     console.log(error);
   }
@@ -67,6 +68,7 @@ export const Login = async (req, res) => {
     //   // secure: true
     // });
     res.json({ accessToken });
+    console.log(`[USERS] LOGIN ${name} as ${as}`);
   } catch (error) {
     res.status(404).json({ message: "Email not found" });
   }

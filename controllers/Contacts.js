@@ -9,6 +9,7 @@ export const getContacts = async (req, res) => {
       order: [["id", "ASC"]],
     });
     res.send(JSON.stringify(contacts));
+    console.log(`[CONTACTS] GET Data`);
   } catch (error) {
     res.json(error);
     console.log(error);
@@ -24,6 +25,7 @@ export const getContactsById = async (req, res) => {
       },
     });
     res.send(JSON.stringify(contacts));
+    console.log(`[CONTACTS] GET Data ID ${id}`);
   } catch (error) {
     res.json(error);
     console.log(error);
@@ -32,7 +34,7 @@ export const getContactsById = async (req, res) => {
 
 export const createContacts = async (req, res) => {
   const { name, gender, phone, email, organization, address, city } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   try {
     await Contacts.create({
       name: name,
@@ -44,6 +46,7 @@ export const createContacts = async (req, res) => {
       city: city,
     });
     res.json({ message: "New contact has been created" });
+    console.log(`[CONTACTS] CREATE Data ${name} - ${city}`);
   } catch (error) {
     console.log(error);
   }
@@ -68,7 +71,7 @@ export const updateContacts = async (req, res) => {
   const { name, gender, phone, email, organization, address, city } = req.body;
   const id = req.params.id;
   // console.log(req.params.id);
-  console.log(req.body);
+  // console.log(req.body);
   try {
     await Contacts.update(
       {
@@ -87,6 +90,7 @@ export const updateContacts = async (req, res) => {
       }
     );
     res.json({ message: "contact has been updated" });
+    console.log(`[CONTACTS] UPDATE Data ${name} - ${city}`);
   } catch (error) {
     console.log(error);
   }
@@ -111,6 +115,7 @@ export const deleteContacts = async (req, res) => {
       // plain: true
     });
     res.json({ message: "contact has been delete" });
+    console.log(`[CONTACTS] DELETE Data ID ${id}`);
   } catch (error) {
     console.log(error);
   }

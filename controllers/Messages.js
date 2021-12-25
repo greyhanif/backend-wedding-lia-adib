@@ -66,6 +66,7 @@ export const createMessages = async (req, res) => {
       code: "400",
       detail: `${name} asal ${city} telah menambahkan pesan [${willBePresent}]`,
     });
+    console.log(`[MESSAGE] ${detail}`);
   } catch (error) {
     console.log(error);
   }
@@ -106,6 +107,7 @@ export const updateMessages = async (req, res) => {
       code: "400",
       detail: `${name} asal ${city} telah mengubah pesan`,
     });
+    console.log(`[MESSAGE] ${detail}`);
   } catch (error) {
     console.log(error);
   }

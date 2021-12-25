@@ -9,7 +9,8 @@ export const getAttendance = async (req, res) => {
     const attendances = await Attendances.findAll({
       order: [["id", "DESC"]],
     });
-    res.send(attendances);
+    res.json(attendances);
+    console.log(`[ATTENDANCES] GET data`);
   } catch (error) {
     res.json(error);
     console.log(error);
@@ -24,7 +25,8 @@ export const getAttendancesId = async (req, res) => {
         id: id,
       },
     });
-    res.send(JSON.stringify(Attendances));
+    res.json(Attendances);
+    console.log(`[ATTENDANCES] GET data ID ${id}`);
   } catch (error) {
     res.json(error);
     console.log(error);
@@ -33,7 +35,7 @@ export const getAttendancesId = async (req, res) => {
 
 export const createAttendances = async (req, res) => {
   const { contactId, name, city, ticketCode, checkInAt, numberOfPeople, checkOutAt, remark, typeOfAttendance } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   try {
     await Attendances.create({
       contactId: contactId,
@@ -54,7 +56,7 @@ export const createAttendances = async (req, res) => {
   try {
     await Logs.create({
       code: "200",
-      detail: ` ${name} asal ${city} ditambahnkan ke Contacts `,
+      detail: ` ${name} asal ${city} ditambahnkan ke Attendance `,
     });
   } catch (error) {
     console.log(error);
@@ -152,6 +154,7 @@ export const invitedCheckIn = async (req, res) => {
       typeOfAttendance: typeOfAttendance,
     });
     res.json({ message: "New Attendance has been Check-in" });
+    console.log(`[ATTENDANCES] CHECK-IN ${checkInAt} ${name} NOP ${numberOfPeople} TOA ${typeOfAttendance}`);
   } catch (error) {
     console.log(error);
   }
@@ -189,6 +192,7 @@ export const invitedCheckOut = async (req, res) => {
       }
     );
     res.json({ message: "Attendance has been Check-Out" });
+    console.log(`[ATTENDANCES] CHECK-OUT ${checkOutAt} ${name} NOP ${numberOfPeople} TOA ${typeOfAttendance}`);
   } catch (error) {
     console.log(error);
   }

@@ -113,6 +113,7 @@ export const createTickets = async (req, res) => {
       detail: `${name} dari ${city} nomor tiket ${ticketCode} telah dibuat`,
     });
     // res.json({ message: "Register berhasil" });
+    console.log(`[TICKETS] CREATE ${name} from ${city} ticket code ${ticketCode}`);
   } catch (error) {
     console.log(error);
   }
