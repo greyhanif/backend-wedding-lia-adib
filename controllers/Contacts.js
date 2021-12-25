@@ -1,15 +1,15 @@
 import Users from "../models/UserModels.js";
 import Logs from "../models/LogModels.js";
 import Contacts from "../models/ContactModels.js";
-import jwt from "express-jwt";
+import moment from "moment";
 
 export const getContacts = async (req, res) => {
   try {
     const contacts = await Contacts.findAll({
       order: [["id", "ASC"]],
     });
-    res.send(JSON.stringify(contacts));
-    console.log(`[CONTACTS] GET Data`);
+    res.json(contacts);
+    console.log(`${moment().format("HH:mm:ss")} [CONTACTS] GET Data`);
   } catch (error) {
     res.json(error);
     console.log(error);
@@ -25,7 +25,7 @@ export const getContactsById = async (req, res) => {
       },
     });
     res.send(JSON.stringify(contacts));
-    console.log(`[CONTACTS] GET Data ID ${id}`);
+    console.log(`${moment().format("HH:mm:ss")} [CONTACTS] GET Data ID ${id}`);
   } catch (error) {
     res.json(error);
     console.log(error);
@@ -46,7 +46,6 @@ export const createContacts = async (req, res) => {
       city: city,
     });
     res.json({ message: "New contact has been created" });
-    console.log(`[CONTACTS] CREATE Data ${name} - ${city}`);
   } catch (error) {
     console.log(error);
   }
@@ -56,6 +55,7 @@ export const createContacts = async (req, res) => {
       code: "200",
       detail: ` ${name} asal ${city} ditambahnkan ke Contacts `,
     });
+    console.log(`${moment().format("HH:mm:ss")} [CONTACTS] CREATE Data ${name} - ${city}`);
   } catch (error) {
     console.log(error);
   }
@@ -90,7 +90,6 @@ export const updateContacts = async (req, res) => {
       }
     );
     res.json({ message: "contact has been updated" });
-    console.log(`[CONTACTS] UPDATE Data ${name} - ${city}`);
   } catch (error) {
     console.log(error);
   }
@@ -100,6 +99,7 @@ export const updateContacts = async (req, res) => {
       code: "200",
       detail: `mengubah ${name} asal ${city} pada daftar Contacts `,
     });
+    console.log(`${moment().format("HH:mm:ss")} [CONTACTS] UPDATE Data ${name} - ${city}`);
   } catch (error) {
     console.log(error);
   }
@@ -115,7 +115,6 @@ export const deleteContacts = async (req, res) => {
       // plain: true
     });
     res.json({ message: "contact has been delete" });
-    console.log(`[CONTACTS] DELETE Data ID ${id}`);
   } catch (error) {
     console.log(error);
   }
@@ -133,6 +132,7 @@ export const deleteContacts = async (req, res) => {
       code: "200",
       detail: `${name} asal ${city} telah dihapus pada Contacts `,
     });
+    console.log(`[CONTACTS] DELETE Data ID ${id}`);
   } catch (error) {
     console.log(error);
   }

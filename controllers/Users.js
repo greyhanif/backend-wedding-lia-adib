@@ -2,6 +2,8 @@ import Users from "../models/UserModels.js";
 import Logs from "../models/LogModels.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import moment from "moment";
+// import "moment/locale/id";
 
 export const getUsers = async (req, res) => {
   try {
@@ -28,7 +30,8 @@ export const Register = async (req, res) => {
       password: hashPassword,
     });
     res.json({ message: "Register berhasil" });
-    console.log(`[USERS] REGISTER ${name} email ${email} as ${as}`);
+    // console.log(`[USERS] REGISTER `);
+    console.log(`${moment().format("HH:mm:ss")} [USERS] REGISTER ${name} EMAIL${email} AS ${as}`);
   } catch (error) {
     console.log(error);
   }
@@ -68,7 +71,7 @@ export const Login = async (req, res) => {
     //   // secure: true
     // });
     res.json({ accessToken });
-    console.log(`[USERS] LOGIN ${name} as ${as}`);
+    // console.log(`[USERS] LOGIN ${name} as ${as}`);
   } catch (error) {
     res.status(404).json({ message: "Email not found" });
   }
@@ -87,6 +90,7 @@ export const Login = async (req, res) => {
       detail: `${name} sebagai ${as} telah LOGIN `,
     });
     // res.json({ message: "Register berhasil" });
+    console.log(`${moment().format("HH:mm:ss")} [USERS] LOGIN ${name} AS ${as}`);
   } catch (error) {
     console.log(error);
   }

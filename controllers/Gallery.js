@@ -1,5 +1,6 @@
 import Logs from "../models/LogModels.js";
 import Gallery from "../models/Gallery.js";
+import moment from "moment";
 
 export const getGallery = async (req, res) => {
   try {
@@ -46,8 +47,9 @@ export const createGallery = async (req, res) => {
   try {
     await Logs.create({
       code: "200",
-      detail: `Gambar ${title} ditambahnkan ke Contacts `,
+      detail: `Gambar ${title} ditambahnkan ke Gallery `,
     });
+    console.log(`${moment().format("HH:mm:ss")} [GALLERY] CREATE Title ${title}`);
   } catch (error) {
     console.log(error);
   }
@@ -79,6 +81,7 @@ export const updateGallery = async (req, res) => {
       code: "200",
       detail: `mengubah ${title} pada daftar Galeri `,
     });
+    console.log(`${moment().format("HH:mm:ss")} [GALLERY] UPDATE Title ${title}`);
   } catch (error) {
     console.log(error);
   }
@@ -100,6 +103,7 @@ export const deleteGallery = async (req, res) => {
       code: "200",
       detail: `${title} telah dihapus pada Galeri `,
     });
+    console.log(`${moment().format("HH:mm:ss")} [GALLERY] DELETE Gallery ID ${id}`);
   } catch (error) {
     console.log(error);
   }

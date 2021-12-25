@@ -2,13 +2,14 @@ import Users from "../models/UserModels.js";
 import Logs from "../models/LogModels.js";
 import Contacts from "../models/ContactModels.js";
 import Relationship from "../models/RelationshipModels.js";
+import moment from "moment";
 
 export const getRelationship = async (req, res) => {
   try {
     const relationship = await Relationship.findAll({
       order: [["id", "ASC"]],
     });
-    res.send(JSON.stringify(relationship));
+    res.json(relationship);
   } catch (error) {
     res.json(error);
     console.log(error);

@@ -3,6 +3,7 @@ import Logs from "../models/LogModels.js";
 // import Contacts from "../models/ContactModels.js";
 import jwt from "express-jwt";
 import Attendances from "../models/AttendancesModels.js";
+import moment from "moment";
 
 export const getAttendance = async (req, res) => {
   try {
@@ -10,7 +11,7 @@ export const getAttendance = async (req, res) => {
       order: [["id", "DESC"]],
     });
     res.json(attendances);
-    console.log(`[ATTENDANCES] GET data`);
+    console.log(`${moment().format("HH:mm:ss")} [ATTENDANCES] GET data`);
   } catch (error) {
     res.json(error);
     console.log(error);
@@ -26,7 +27,7 @@ export const getAttendancesId = async (req, res) => {
       },
     });
     res.json(Attendances);
-    console.log(`[ATTENDANCES] GET data ID ${id}`);
+    console.log(`${moment().format("HH:mm:ss")} [ATTENDANCES] GET data ID ${id}`);
   } catch (error) {
     res.json(error);
     console.log(error);
@@ -58,6 +59,7 @@ export const createAttendances = async (req, res) => {
       code: "200",
       detail: ` ${name} asal ${city} ditambahnkan ke Attendance `,
     });
+    console.log(`${moment().format("HH:mm:ss")} [ATTENDANCES] CREATE ${nameOfficer} sebagai ${asOfficer} membuat ${name} asal ${city}`);
   } catch (error) {
     console.log(error);
   }
@@ -67,13 +69,13 @@ export const updateAttendances = async (req, res) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
-  console.log(req.user);
+  // console.log(req.user);
   // const decoded = jwt.decode(token, process.env.ACCESS_TOKEN_SECRET);
 
   const { contactId, name, city, ticketCode, checkInAt, numberOfPeople, checkOutAt, remark, typeOfAttendance, nameOfficer, asOfficer } = req.body;
   const id = req.params.id;
   // console.log(req.params.id);
-  console.log(req.body);
+  // console.log(req.body);
   try {
     await Attendances.update(
       {
@@ -103,6 +105,7 @@ export const updateAttendances = async (req, res) => {
       code: "200",
       detail: `${nameOfficer} sebagai ${asOfficer} mengubah ${name} asal ${city} pada daftar Attendances `,
     });
+    console.log(`${moment().format("HH:mm:ss")} [ATTENDANCES] UPDATE ${nameOfficer} sebagai ${asOfficer} mengubah ${name} asal ${city}`);
   } catch (error) {
     console.log(error);
   }
@@ -134,6 +137,7 @@ export const deleteAttendance = async (req, res) => {
       code: "200",
       detail: `${id} asal  telah dihapus pada Attendances `,
     });
+    console.log(`${moment().format("HH:mm:ss")} [ATTENDANCES] DELETE ID ${id}`);
   } catch (error) {
     console.log(error);
   }
@@ -154,7 +158,7 @@ export const invitedCheckIn = async (req, res) => {
       typeOfAttendance: typeOfAttendance,
     });
     res.json({ message: "New Attendance has been Check-in" });
-    console.log(`[ATTENDANCES] CHECK-IN ${checkInAt} ${name} NOP ${numberOfPeople} TOA ${typeOfAttendance}`);
+    console.log(`${moment().format("HH:mm:ss")} [ATTENDANCES] CHECK-IN ${checkInAt} ${name} NOP ${numberOfPeople} TOA ${typeOfAttendance}`);
   } catch (error) {
     console.log(error);
   }
@@ -192,7 +196,6 @@ export const invitedCheckOut = async (req, res) => {
       }
     );
     res.json({ message: "Attendance has been Check-Out" });
-    console.log(`[ATTENDANCES] CHECK-OUT ${checkOutAt} ${name} NOP ${numberOfPeople} TOA ${typeOfAttendance}`);
   } catch (error) {
     console.log(error);
   }
@@ -202,6 +205,7 @@ export const invitedCheckOut = async (req, res) => {
       code: "200",
       detail: `${name} asal ${city} telah Check-Out `,
     });
+    console.log(`${moment().format("HH:mm:ss")} [ATTENDANCES] CHECK-OUT ${checkOutAt} ${name} NOP ${numberOfPeople} TOA ${typeOfAttendance}`);
   } catch (error) {
     console.log(error);
   }

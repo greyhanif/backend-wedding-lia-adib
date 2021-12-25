@@ -1,6 +1,7 @@
 import Contacts from "../models/ContactModels.js";
 
 import Tickets from "../models/TicketModels.js";
+import moment from "moment";
 
 export const getPrint = async (req, res) => {
   try {
@@ -17,6 +18,7 @@ export const getPrint = async (req, res) => {
       // attributes: [ticketCode],
     });
     res.json(contacts);
+    console.log(`${moment().format("HH:mm:ss")} [PRINT] GET Data`);
   } catch (error) {
     res.json(error);
     console.log(error);

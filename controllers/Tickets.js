@@ -2,6 +2,7 @@ import Users from "../models/UserModels.js";
 import Logs from "../models/LogModels.js";
 import Tickets from "../models/TicketModels.js";
 import Contacts from "../models/ContactModels.js";
+import moment from "moment";
 
 export const getTickets = async (req, res) => {
   try {
@@ -9,6 +10,7 @@ export const getTickets = async (req, res) => {
       order: [["id", "ASC"]],
     });
     res.json(tickets);
+    console.log(`[TICKETS] GET Data`);
   } catch (error) {
     res.json(error);
     console.log(error);
@@ -25,6 +27,7 @@ export const getTicketsById = async (req, res) => {
       },
     });
     res.json(tickets);
+    console.log(`[TICKETS] GET Data ID ${id}`);
   } catch (error) {
     res.json(error);
     console.log(error);
@@ -42,7 +45,7 @@ export const getTicketsByCode = async (req, res) => {
       ticketCode: code,
     },
   });
-  console.log(tickets);
+  // console.log(tickets);
 
   if (tickets.length === 0) {
     return res.status(404).json({ message: "Ticket Code not found" });
@@ -56,6 +59,7 @@ export const getTicketsByCode = async (req, res) => {
       },
     });
     res.json(contacts);
+    console.log(`${moment().format("HH:mm:ss")} [TICKETS] GET Data by Code ${code}`);
   } catch (error) {
     console.log(error);
   }
@@ -113,7 +117,7 @@ export const createTickets = async (req, res) => {
       detail: `${name} dari ${city} nomor tiket ${ticketCode} telah dibuat`,
     });
     // res.json({ message: "Register berhasil" });
-    console.log(`[TICKETS] CREATE ${name} from ${city} ticket code ${ticketCode}`);
+    console.log(`${moment().format("HH:mm:ss")} [TICKETS] CREATE ${name} from ${city} ticket code ${ticketCode}`);
   } catch (error) {
     console.log(error);
   }
