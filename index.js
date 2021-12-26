@@ -18,11 +18,13 @@ import Messages from "./models/MessageModels.js";
 import Relationship from "./models/RelationshipModels.js";
 import Attendances from "./models/AttendancesModels.js";
 import Gallery from "./models/Gallery.js";
+import Configuration from "./models/ConfigurationModels.js";
 
 try {
-  console.log(`${moment().local().format("HH:mm:ss")} [DATABASE] Database Connecting...`);
+  console.log(`${moment().local().format("HH:mm:ss")} [DATABASE] Database connecting...`);
   await db.authenticate();
-  console.log(`${moment().local().format("HH:mm:ss")} [DATABASE] Database Connected`);
+  console.log(`${moment().local().format("HH:mm:ss")} [DATABASE] Database connected`);
+  console.log(`${moment().local().format("HH:mm:ss")} [DATABASE] Database synchronizing...`);
   await Users.sync();
   await Contacts.sync();
   await Logs.sync();
@@ -31,6 +33,8 @@ try {
   await Relationship.sync();
   await Attendances.sync();
   await Gallery.sync();
+  await Configuration.sync();
+  console.log(`${moment().local().format("HH:mm:ss")} [DATABASE] Database synchronized`);
 } catch (error) {
   console.error(error);
 }

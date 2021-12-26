@@ -18,6 +18,9 @@ const Tickets = db.define(
     linkInvitation: {
       type: DataTypes.STRING(70),
     },
+    numberOfSouvenir: {
+      type: DataTypes.INTEGER(1),
+    },
   },
   {
     freezeTableName: true,

@@ -76,7 +76,7 @@ let iCode = (function (num) {
 })(1);
 
 export const createTickets = async (req, res) => {
-  const { contactId, relationshipCode } = req.body;
+  const { contactId, relationshipCode, numberOfSouvenir } = req.body;
   const contact = await Contacts.findAll({
     where: {
       id: req.body.contactId,
@@ -99,6 +99,7 @@ export const createTickets = async (req, res) => {
       contactId: contactId,
       relationshipCode: relationshipCode,
       linkInvitation: linkInvitation,
+      numberOfSouvenir: numberOfSouvenir,
     });
     res.json({ message: "Berhasil menambahkan tiket baru" });
   } catch (error) {
