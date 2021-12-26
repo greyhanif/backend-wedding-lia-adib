@@ -89,8 +89,10 @@ export const createTickets = async (req, res) => {
     return Math.random().toString(36).substr(2, 4).toUpperCase();
   };
   const name = contact[0].name;
-  const as = contact[0].as;
-  const nameReplace = name.replace(/\s+/g, "+");
+  const city = contact[0].city;
+  const organization = contact[0].organization;
+  const identifier = city ? city.toLowerCase().replace(/\s+/g, "+") : organization.toLowerCase().replace(/\s+/g, "+");
+  const nameReplace = `${name.toLowerCase().replace(/\s+/g, "+")}+${identifier}`;
   const ticketCode = relationshipCode + "-" + ID();
   const linkInvitation = `${nameReplace}`;
   try {
