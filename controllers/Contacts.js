@@ -24,7 +24,7 @@ export const getContactsById = async (req, res) => {
         id: id,
       },
     });
-    res.send(JSON.stringify(contacts));
+    res.json(contacts);
     console.log(`${moment().local().format("HH:mm:ss")} [CONTACTS] GET Data ID ${id}`);
   } catch (error) {
     res.json(error);
@@ -33,10 +33,11 @@ export const getContactsById = async (req, res) => {
 };
 
 export const createContacts = async (req, res) => {
-  const { name, gender, phone, email, organization, address, city } = req.body;
+  const { title, name, gender, phone, email, organization, address, city } = req.body;
   // console.log(req.body);
   try {
     await Contacts.create({
+      title: title,
       name: name,
       gender: gender,
       phone: phone,
@@ -68,13 +69,14 @@ export const updateContacts = async (req, res) => {
   console.log(req.user);
   // const decoded = jwt.decode(token, process.env.ACCESS_TOKEN_SECRET);
 
-  const { name, gender, phone, email, organization, address, city } = req.body;
+  const { title, name, gender, phone, email, organization, address, city } = req.body;
   const id = req.params.id;
   // console.log(req.params.id);
   // console.log(req.body);
   try {
     await Contacts.update(
       {
+        title: title,
         name: name,
         gender: gender,
         phone: phone,

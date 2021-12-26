@@ -6,6 +6,9 @@ const { DataTypes } = Sequelize;
 const Contacts = db.define(
   "contacts",
   {
+    title: {
+      type: DataTypes.STRING(10),
+    },
     name: {
       type: DataTypes.STRING(30),
     },
