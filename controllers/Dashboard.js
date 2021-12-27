@@ -71,6 +71,11 @@ export const Dashboard = async (req, res) => {
       group: ["city"],
     });
 
+    // Count contact Organization
+    const countContactsOrganization = await Contacts.count({
+      group: ["organization"],
+    });
+
     // Count contact Male
     const countTicketsRelationshipCode = await Tickets.count({
       group: ["relationshipCode"],
@@ -91,6 +96,7 @@ export const Dashboard = async (req, res) => {
       totalContacts: countContacts,
       totalTickets: countTickets,
       countContactsCity: countContactsCity,
+      countContactsOrganization: countContactsOrganization,
       countTicketsRelationshipCode: countTicketsRelationshipCode,
       totalContactsFemale: countContactsFemale,
       totalContactsMale: countContactsMale,

@@ -49,7 +49,7 @@ POST http://localhost:5000/tickets
 Content-Type: application/json
 
 {
-    "contactId": "1",
+    "contactId": "131",
     "relationshipCode": "FAMF"
 }
 
