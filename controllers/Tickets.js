@@ -10,7 +10,7 @@ export const getTickets = async (req, res) => {
       order: [["id", "ASC"]],
     });
     res.json(tickets);
-    console.log(`[TICKETS] GET Data`);
+    console.log(`${moment().local().format("HH:mm:ss")} [TICKETS] GET Data ALL`);
   } catch (error) {
     res.json(error);
     console.log(error);
