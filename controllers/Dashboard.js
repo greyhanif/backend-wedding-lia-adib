@@ -114,6 +114,7 @@ export const Dashboard = async (req, res) => {
 
     res.json(payload);
     // console.log(res.contacts);
+    console.log(`${moment().local().format("HH:mm:ss")} [DASHBOARD] GET ALL`);
   } catch (error) {
     res.json(error);
     console.log(error);
