@@ -101,12 +101,12 @@ export const Dashboard = async (req, res) => {
       totalContactsFemale: countContactsFemale,
       totalContactsMale: countContactsMale,
       totalMessages: countMessages,
-      countAttendance: countAttendance,
-      countPeopleInRoom: countPeopleInRoom,
       lastLogs: logs,
       lastContacts: contacts,
       lastTickets: tickets,
       lastMessages: lastMessages,
+      countAttendance: countAttendance,
+      countPeopleInRoom: countPeopleInRoom,
       lastAttendances: lastAttendances,
     };
 

@@ -158,7 +158,7 @@ export const invitedCheckIn = async (req, res) => {
       typeOfAttendance: typeOfAttendance,
     });
     res.json({ message: "New Attendance has been Check-in" });
-    console.log(`${moment().local().format("HH:mm:ss")} [ATTENDANCES] CHECK-IN ${checkInAt} ${name} NOP ${numberOfPeople} TOA ${typeOfAttendance}`);
+    console.log(`${moment().local().format("HH:mm:ss")} [ATTENDANCES] CHECK-IN ${Date().toISOString()} ${name} NOP ${numberOfPeople} TOA ${typeOfAttendance}`);
   } catch (error) {
     console.log(error);
   }

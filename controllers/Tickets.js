@@ -91,8 +91,10 @@ export const createTickets = async (req, res) => {
   const name = contact[0].name;
   const city = contact[0].city;
   const organization = contact[0].organization;
-  const identifier = city ? city.toLowerCase().replace(/\s+/g, "+") : organization.toLowerCase().replace(/\s+/g, "+");
-  const nameReplace = `${name.toLowerCase().replace(/\s+/g, "+")}+${identifier}`;
+  // const identifier = city ? city.toLowerCase().replace(/\s+/g, "+") : organization.toLowerCase().replace(/\s+/g, "+");
+  // const nameReplace = `${name.toLowerCase().replace(/\s+/g, "+")}+${identifier}`;
+  const identifier = city ? city.toLowerCase().replace(/[\. ,:-]+/g, "+") : organization.toLowerCase().replace(/[\. ,:-]+/g, "+");
+  const nameReplace = `${name.toLowerCase().replace(/[\. ,:-]+/g, "+")}+${identifier}`;
   const ticketCode = relationshipCode + "-" + ID();
   const linkInvitation = `${nameReplace}`;
   try {

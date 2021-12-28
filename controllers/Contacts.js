@@ -9,7 +9,7 @@ export const getContacts = async (req, res) => {
       order: [["id", "ASC"]],
     });
     res.json(contacts);
-    console.log(`${moment().local().format("HH:mm:ss")} [CONTACTS] GET Data`);
+    console.log(`${moment().local().format("HH:mm:ss")} [CONTACTS] GET Data ALL`);
   } catch (error) {
     res.json(error);
     console.log(error);
@@ -56,7 +56,7 @@ export const createContacts = async (req, res) => {
       code: "200",
       detail: ` ${name} asal ${city} ditambahnkan ke Contacts `,
     });
-    console.log(`${moment().local().format("HH:mm:ss")} [CONTACTS] CREATE Data ${name} - ${city}`);
+    console.log(`${moment().local().format("HH:mm:ss")} [CONTACTS] CREATE ${name} - ${organization} - ${city}`);
   } catch (error) {
     console.log(error);
   }
@@ -101,7 +101,7 @@ export const updateContacts = async (req, res) => {
       code: "200",
       detail: `mengubah ${name} asal ${city} pada daftar Contacts `,
     });
-    console.log(`${moment().local().format("HH:mm:ss")} [CONTACTS] UPDATE Data ${name} - ${city}`);
+    console.log(`${moment().local().format("HH:mm:ss")} [CONTACTS] UPDATE ${name} - ${organization} - ${city}`);
   } catch (error) {
     console.log(error);
   }

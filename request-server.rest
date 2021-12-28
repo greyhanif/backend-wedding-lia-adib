@@ -49,8 +49,8 @@ POST http://localhost:5000/tickets
 Content-Type: application/json
 
 {
-    "contactId": "131",
-    "relationshipCode": "FAMF"
+    "contactId": "37",
+    "relationshipCode": "BPIX"
 }
 
 ###
