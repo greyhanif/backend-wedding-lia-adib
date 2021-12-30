@@ -71,3 +71,8 @@ DELETE http://localhost:5000/logout
 ###
 POST http://localhost:5000/contacts
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJBcHJpbGlhIFJhaG1hIEt1c3VtYXN0dXRpIiwiYXMiOiJhZG1pbi0xIiwiZW1haWwiOiJhcHJpbEBtYWlsLmNvbSIsImlhdCI6MTYzODM4ODI5OSwiZXhwIjoxNjM4MzkxODk5fQ.IYJFgnKLOM5e0AUZw3izp6n19bCgztAskBDRpU9iJNU
+
+###
+PUT http://localhost:5000/check-out/PPKX-OV9V
+Content-Type: application/json
+

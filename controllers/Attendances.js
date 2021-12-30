@@ -180,17 +180,17 @@ export const invitedCheckOut = async (req, res) => {
   // console.log(req.user);
   // // const decoded = jwt.decode(token, process.env.ACCESS_TOKEN_SECRET);
 
-  const { contactId, name, city, checkInAt, numberOfPeople, checkOutAt, remark, typeOfAttendance } = req.body;
+  // const { contactId, name, city, checkInAt, numberOfPeople, checkOutAt, remark, typeOfAttendance } = req.body;
   const ticketCode = req.params.code;
   // console.log(req.params.id);
-  console.log(req.body);
+  // console.log(req.body);
   try {
     await Attendances.update(
       {
         checkOutAt: new Date().toISOString(),
       },
       {
-        where: { id: ticketCode },
+        where: { ticketCode: ticketCode },
         // returning: true,
         // plain: true
       }
@@ -201,11 +201,22 @@ export const invitedCheckOut = async (req, res) => {
   }
 
   try {
+    const attendances = await Attendances.findOne({
+      where: {
+        ticketCode: ticketCode,
+      },
+    });
+    // console.log(attendances.dataValues);
     await Logs.create({
       code: "200",
-      detail: `${name} asal ${city} telah Check-Out `,
+      detail: `${attendances.dataValues.name} asal ${attendances.dataValues.city} telah Check-Out `,
     });
-    console.log(`${moment().local().format("HH:mm:ss")} [ATTENDANCES] CHECK-OUT ${checkOutAt} ${name} NOP ${numberOfPeople} TOA ${typeOfAttendance}`);
+
+    console.log(
+      `${moment().local().format("HH:mm:ss")} [ATTENDANCES] CHECK-OUT ${attendances.dataValues.name} NOP ${attendances.dataValues.numberOfPeople} TOA ${attendances.dataValues.typeOfAttendance} ANOS ${
+        attendances.dataValues.typeOfAttendance
+      } `
+    );
   } catch (error) {
     console.log(error);
   }

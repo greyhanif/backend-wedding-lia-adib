@@ -19,6 +19,7 @@ import Relationship from "./models/RelationshipModels.js";
 import Attendances from "./models/AttendancesModels.js";
 import Gallery from "./models/Gallery.js";
 import Configuration from "./models/ConfigurationModels.js";
+import Souvenir from "./models/SouvenirModels.js";
 
 try {
   console.log(`${moment().local().format("HH:mm:ss")} [DATABASE] Database connecting...`);
@@ -34,6 +35,7 @@ try {
   await Attendances.sync();
   await Gallery.sync();
   await Configuration.sync();
+  await Souvenir.sync();
   console.log(`${moment().local().format("HH:mm:ss")} [DATABASE] Database synchronized`);
 } catch (error) {
   console.error(error);

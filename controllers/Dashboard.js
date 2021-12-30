@@ -7,6 +7,8 @@ import db from "../config/Database.js";
 import Logs from "../models/LogModels.js";
 import Messages from "../models/MessageModels.js";
 import Attendances from "../models/AttendancesModels.js";
+import moment from "moment";
+import Configuration from "../models/ConfigurationModels.js";
 
 export const Dashboard = async (req, res) => {
   const slug = req.params.slug;
@@ -92,6 +94,21 @@ export const Dashboard = async (req, res) => {
     // Count check-in
     const countAttendance = await Attendances.count({});
 
+    // Count souvenir stock
+    const souvenirStock = await Configuration.findOne({
+      where: {
+        property: "souvenirStock",
+      },
+      attributes: ["valueInt"],
+    });
+
+    // const souvenirHasBeenDistributed = await Attendances.findAll({
+    //   where: {
+    //     checkOutAt: null,
+    //   },
+    //   attributes: [[Sequelize.fn("sum", Sequelize.col("numberOfPeople")), "totalPeople"]],
+    // });
+
     const payload = {
       totalContacts: countContacts,
       totalTickets: countTickets,
@@ -108,15 +125,15 @@ export const Dashboard = async (req, res) => {
       countAttendance: countAttendance,
       countPeopleInRoom: countPeopleInRoom,
       lastAttendances: lastAttendances,
+      souvenirStock: souvenirStock.valueInt,
     };
 
     // const payload = [countContacts, countTickets, countContactsCity, countTicketsRelationshipCode, countContactsFemale, countContactsMale, logs, contacts, tickets];
 
     res.json(payload);
-    // console.log(res.contacts);
     console.log(`${moment().local().format("HH:mm:ss")} [DASHBOARD] GET ALL`);
   } catch (error) {
-    res.json(error);
+    // res.json(error);
     console.log(error);
   }
 };

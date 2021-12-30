@@ -10,7 +10,7 @@ const Tickets = db.define(
       type: DataTypes.STRING(10),
     },
     contactId: {
-      type: DataTypes.STRING(4),
+      type: DataTypes.INTEGER,
     },
     relationshipCode: {
       type: DataTypes.STRING(4),

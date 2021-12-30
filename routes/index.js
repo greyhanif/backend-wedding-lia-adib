@@ -15,13 +15,15 @@ import { getPrint } from "../controllers/Print.js";
 import { getAttendance, invitedCheckIn, invitedCheckOut } from "../controllers/Attendances.js";
 import { getGallery, getGalleryById, updateGallery, deleteGallery, createGallery } from "../controllers/Gallery.js";
 import { injectMetaVisitor } from "../controllers/InjectMeta.js";
-import { createConfiguration, deleteConfiguration, getConfiguration, getConfigurationById, updateConfiguration } from "../controllers/Configuration.js";
+import { createConfiguration, deleteConfiguration, getConfiguration, getConfigurationByProperty, updateConfiguration } from "../controllers/Configuration.js";
+import { getRecap } from "../controllers/Recap.js";
 // import { getRe } from "../controllers/Dashboard.js";
 
 const router = express.Router();
 // router.all("*", cors());
 
 router.get("/visitor", injectMetaVisitor);
+router.get("/recap", getRecap);
 
 // login
 router.post("/register", Register);
@@ -32,7 +34,7 @@ router.delete("/logout", Logout);
 
 //CONFIGURATION
 router.get("/configuration", getConfiguration);
-router.get("/configuration/:id", getConfigurationById);
+router.get("/configuration/:property", getConfigurationByProperty);
 router.post("/configuration", createConfiguration);
 router.put("/configuration/:id", updateConfiguration);
 router.delete("/configuration/:id", deleteConfiguration);

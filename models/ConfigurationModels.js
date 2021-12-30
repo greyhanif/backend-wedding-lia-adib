@@ -19,7 +19,7 @@ const Configuration = db.define(
       type: DataTypes.INTEGER(6),
     },
     valueStr: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.TEXT,
     },
   },
   {

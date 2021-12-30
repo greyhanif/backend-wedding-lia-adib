@@ -17,16 +17,16 @@ export const getConfiguration = async (req, res) => {
   }
 };
 
-export const getConfigurationById = async (req, res) => {
-  const id = req.params.id;
+export const getConfigurationByProperty = async (req, res) => {
+  const property = req.params.property;
   try {
-    const configurations = await Configuration.findAll({
+    const configurations = await Configuration.findOne({
       where: {
-        id: id,
+        property: property,
       },
     });
     res.json(configurations);
-    console.log(`${moment().local().format("HH:mm:ss")} [CONFIGURATION] GET Data ID ${id}`);
+    console.log(`${moment().local().format("HH:mm:ss")} [CONFIGURATION] GET Data PROPERTY ${property}`);
   } catch (error) {
     res.json(error);
     console.log(error);
