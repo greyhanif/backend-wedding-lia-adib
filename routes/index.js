@@ -12,7 +12,7 @@ import { Dashboard } from "../controllers/Dashboard.js";
 import { createRelationship, deleteRelationship, getRelationship, updateRelationship } from "../controllers/Relationship.js";
 import { getDetailForCounter } from "../controllers/Counter.js";
 import { getPrint } from "../controllers/Print.js";
-import { getAttendance, invitedCheckIn, invitedCheckOut } from "../controllers/Attendances.js";
+import { getAttendance, getAttendancesByCode, invitedCheckIn, invitedCheckOut } from "../controllers/Attendances.js";
 import { getGallery, getGalleryById, updateGallery, deleteGallery, createGallery } from "../controllers/Gallery.js";
 import { injectMetaVisitor } from "../controllers/InjectMeta.js";
 import { createConfiguration, deleteConfiguration, getConfiguration, getConfigurationByProperty, updateConfiguration } from "../controllers/Configuration.js";
@@ -58,8 +58,8 @@ router.get("/tickets", getTickets);
 // router.get("/tickets/:id", getTicketsById);
 router.get("/tickets/:code", getTicketsByCode);
 router.post("/tickets", createTickets);
-// router.put("/tickets/:id", verifyToken, editTicketsById);
-// router.delete("/tickets/:id", verifyToken, deleteTicketsById);
+// router.put("/tickets-by-id/:id", editTicketsById);
+// router.delete("/tickets/:id", deleteTicketsById);
 
 // // message
 router.get("/messages", getMessages);
@@ -85,6 +85,7 @@ router.delete("/relationship/:id", deleteRelationship);
 router.get("/print", getPrint);
 
 router.get("/attendances", getAttendance);
+router.get("/attendances-code/:code", getAttendancesByCode);
 router.post("/check-in", invitedCheckIn);
 router.put("/check-out/:code", invitedCheckOut);
 

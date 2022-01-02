@@ -34,6 +34,22 @@ export const getAttendancesId = async (req, res) => {
   }
 };
 
+export const getAttendancesByCode = async (req, res) => {
+  const code = req.params.code;
+  try {
+    const attendances = await Attendances.findOne({
+      where: {
+        ticketCode: code,
+      },
+    });
+    res.json(attendances);
+    console.log(`${moment().local().format("HH:mm:ss")} [ATTENDANCES] GET data by CODE ${code}`);
+  } catch (error) {
+    res.json(error);
+    console.log(error);
+  }
+};
+
 export const createAttendances = async (req, res) => {
   const { contactId, name, city, ticketCode, checkInAt, numberOfPeople, checkOutAt, remark, typeOfAttendance } = req.body;
   // console.log(req.body);
@@ -144,8 +160,8 @@ export const deleteAttendance = async (req, res) => {
 };
 
 export const invitedCheckIn = async (req, res) => {
-  const { contactId, name, city, ticketCode, numberOfPeople, remark, typeOfAttendance, nameOfficer, asOfficer } = req.body;
-  console.log(req.body);
+  const { contactId, name, city, ticketCode, numberOfPeople, remark, typeOfAttendance, nameOfficer, asOfficer, expectedNumberOfSouvenir } = req.body;
+  // console.log(req.body);
   try {
     await Attendances.create({
       contactId: contactId,
@@ -156,9 +172,25 @@ export const invitedCheckIn = async (req, res) => {
       numberOfPeople: numberOfPeople,
       remark: remark,
       typeOfAttendance: typeOfAttendance,
+      stateOfAttendance: "check-in",
+      expectedNumberOfSouvenir: expectedNumberOfSouvenir,
     });
-    res.json({ message: "New Attendance has been Check-in" });
-    console.log(`${moment().local().format("HH:mm:ss")} [ATTENDANCES] CHECK-IN ${Date().toISOString()} ${name} NOP ${numberOfPeople} TOA ${typeOfAttendance}`);
+
+    let payload = {
+      message: "OK",
+      contactId: contactId,
+      name: name,
+      city: city,
+      ticketCode: ticketCode,
+      checkInAt: new Date().toISOString(),
+      numberOfPeople: numberOfPeople,
+      remark: remark,
+      typeOfAttendance: typeOfAttendance,
+      stateOfAttendance: "check-in",
+    };
+    // res.json({ message: "New Attendance has been Check-in", payload });
+    res.json(payload);
+    console.log(`${moment().local().format("HH:mm:ss")} [ATTENDANCES] CHECK-IN ${name} NOP ${numberOfPeople} TOA ${typeOfAttendance}`);
   } catch (error) {
     console.log(error);
   }
@@ -174,20 +206,29 @@ export const invitedCheckIn = async (req, res) => {
 };
 
 export const invitedCheckOut = async (req, res) => {
-  // const authHeader = req.headers["authorization"];
-  // const token = authHeader && authHeader.split(" ")[1];
-
-  // console.log(req.user);
-  // // const decoded = jwt.decode(token, process.env.ACCESS_TOKEN_SECRET);
-
-  // const { contactId, name, city, checkInAt, numberOfPeople, checkOutAt, remark, typeOfAttendance } = req.body;
   const ticketCode = req.params.code;
-  // console.log(req.params.id);
-  // console.log(req.body);
+  const { actuallyNumberOfSouvenir, nameOfficer, asOfficer } = req.body;
   try {
+    const attendance = await Attendances.findOne({
+      where: {
+        ticketCode: ticketCode,
+      },
+    });
+    let remarksSouvenir = "";
+    if (actuallyNumberOfSouvenir > attendance.expectedNumberOfSouvenir) {
+      remarksSouvenir = "Lebih";
+    } else if (actuallyNumberOfSouvenir < attendance.expectedNumberOfSouvenir) {
+      remarksSouvenir = "Kurang";
+    } else {
+      remarksSouvenir = "Sesuai";
+    }
+    console.log(remarksSouvenir);
     await Attendances.update(
       {
         checkOutAt: new Date().toISOString(),
+        actuallyNumberOfSouvenir: actuallyNumberOfSouvenir,
+        stateOfAttendance: "check-out",
+        remarksSouvenir: remarksSouvenir,
       },
       {
         where: { ticketCode: ticketCode },
@@ -195,28 +236,19 @@ export const invitedCheckOut = async (req, res) => {
         // plain: true
       }
     );
-    res.json({ message: "Attendance has been Check-Out" });
-  } catch (error) {
-    console.log(error);
-  }
 
-  try {
     const attendances = await Attendances.findOne({
       where: {
         ticketCode: ticketCode,
       },
     });
-    // console.log(attendances.dataValues);
+    console.log(attendance.dataValues.expectedNumberOfSouvenir);
     await Logs.create({
       code: "200",
       detail: `${attendances.dataValues.name} asal ${attendances.dataValues.city} telah Check-Out `,
     });
-
-    console.log(
-      `${moment().local().format("HH:mm:ss")} [ATTENDANCES] CHECK-OUT ${attendances.dataValues.name} NOP ${attendances.dataValues.numberOfPeople} TOA ${attendances.dataValues.typeOfAttendance} ANOS ${
-        attendances.dataValues.typeOfAttendance
-      } `
-    );
+    res.json(attendances);
+    console.log(`${moment().local().format("HH:mm:ss")} [ATTENDANCES] CHECK-OUT CODE ${ticketCode} NOP ${attendances.dataValues.numberOfPeople} TOA ${attendances.dataValues.typeOfAttendance} ANOS ${actuallyNumberOfSouvenir} `);
   } catch (error) {
     console.log(error);
   }

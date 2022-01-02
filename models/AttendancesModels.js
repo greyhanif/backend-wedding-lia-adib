@@ -30,6 +30,18 @@ const Attendances = db.define(
     checkOutAt: {
       type: DataTypes.DATE,
     },
+    expectedNumberOfSouvenir: {
+      type: DataTypes.INTEGER(2),
+    },
+    actuallyNumberOfSouvenir: {
+      type: DataTypes.INTEGER(2),
+    },
+    remarksSouvenir: {
+      type: DataTypes.STRING(10),
+    },
+    stateOfAttendance: {
+      type: DataTypes.STRING(10),
+    },
     typeOfAttendance: {
       type: DataTypes.STRING(10),
     },

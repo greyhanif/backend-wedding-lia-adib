@@ -45,6 +45,15 @@ export const Dashboard = async (req, res) => {
       order: [["createdAt", "DESC"]],
     });
 
+    // Get lastAttendance
+    const lastCheckOut = await Attendances.findAll({
+      where: {
+        stateOfAttendance: "check-out",
+      },
+      limit: 5,
+      order: [["updatedAt", "DESC"]],
+    });
+
     // Count messages
     const countMessages = await Messages.count({});
 
@@ -102,6 +111,11 @@ export const Dashboard = async (req, res) => {
       attributes: ["valueInt"],
     });
 
+    // Count expect souvenir
+    const totalExpectedNumberOfSouvenir = await Tickets.findAll({
+      attributes: [[Sequelize.fn("sum", Sequelize.col("numberOfSouvenir")), "totalExpectedNumberOfSouvenir"]],
+    });
+
     // const souvenirHasBeenDistributed = await Attendances.findAll({
     //   where: {
     //     checkOutAt: null,
@@ -125,7 +139,9 @@ export const Dashboard = async (req, res) => {
       countAttendance: countAttendance,
       countPeopleInRoom: countPeopleInRoom,
       lastAttendances: lastAttendances,
+      lastCheckOut: lastCheckOut,
       souvenirStock: souvenirStock.valueInt,
+      totalExpectedNumberOfSouvenir: totalExpectedNumberOfSouvenir,
     };
 
     // const payload = [countContacts, countTickets, countContactsCity, countTicketsRelationshipCode, countContactsFemale, countContactsMale, logs, contacts, tickets];
