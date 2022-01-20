@@ -7,15 +7,15 @@ import moment from "moment";
 
 export const getTickets = async (req, res) => {
   try {
-    Tickets.hasMany(Souvenir, {
+    Contacts.hasMany(Tickets, {
       foreignKey: "contactId",
     });
-    Souvenir.belongsTo(Contacts, {
+    Tickets.belongsTo(Contacts, {
       foreignKey: "contactId",
     });
     const tickets = await Tickets.findAll({
-      order: [["id", "ASC"]],
-      include: Souvenir,
+      order: [["updatedAt", "DESC"]],
+      include: Contacts,
     });
     res.json(tickets);
     console.log(`${moment().local().format("HH:mm:ss")} [TICKETS] GET Data ALL`);
@@ -48,28 +48,21 @@ export const getTicketsByCode = async (req, res) => {
     console.log(`${moment().local().format("HH:mm:ss")} [TICKETS] GET Data not compatible code`);
     return res.status(404).json({ message: "Ticket Code not compatible" });
   }
-
-  const tickets = await Tickets.findAll({
-    where: {
-      ticketCode: code,
-    },
-  });
-  // console.log(tickets);
-
-  if (tickets.length === 0) {
-    console.log(`${moment().local().format("HH:mm:ss")} [TICKETS] GET Data not found`);
-    return res.status(404).json({ message: "Ticket Code not found" });
-  }
-  const contactId = tickets[0].contactId;
   try {
-    const id = contactId;
-    const contacts = await Contacts.findAll({
-      where: {
-        id: id,
-      },
+    Contacts.hasMany(Tickets, {
+      foreignKey: "contactId",
     });
-    res.json(contacts);
-    console.log(`${moment().local().format("HH:mm:ss")} [TICKETS] GET Data by Code ${code}`);
+    Tickets.belongsTo(Contacts, {
+      foreignKey: "contactId",
+    });
+    const tickets = await Tickets.findAll({
+      where: {
+        ticketCode: code,
+      },
+      order: [["updatedAt", "DESC"]],
+      include: Contacts,
+    });
+    res.json(tickets);
   } catch (error) {
     console.log(error);
   }
@@ -96,13 +89,14 @@ export const createTickets = async (req, res) => {
     // after the decimal.
     return Math.random().toString(36).substr(2, 4).toUpperCase();
   };
+  const title = contact[0].title;
   const name = contact[0].name;
   const city = contact[0].city;
   const organization = contact[0].organization;
   // const identifier = city ? city.toLowerCase().replace(/\s+/g, "+") : organization.toLowerCase().replace(/\s+/g, "+");
   // const nameReplace = `${name.toLowerCase().replace(/\s+/g, "+")}+${identifier}`;
   const identifier = city ? city.toLowerCase().replace(/[\. ,:-]+/g, "+") : organization.toLowerCase().replace(/[\. ,:-]+/g, "+");
-  const nameReplace = `${name.toLowerCase().replace(/[\. ,:-]+/g, "+")}+${identifier}`;
+  const nameReplace = `${title === null ? "" : title.toLowerCase().replace(/[\. ,:-]+/g, "+") + "+"}${name.toLowerCase().replace(/[\. ,:-]+/g, "+")}+${identifier}`;
   const ticketCode = relationshipCode + "-" + ID();
   const linkInvitation = `${nameReplace}`;
   try {

@@ -21,6 +21,11 @@ const Tickets = db.define(
     numberOfSouvenir: {
       type: DataTypes.INTEGER(1),
     },
+    isVIP: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   },
   {
     freezeTableName: true,

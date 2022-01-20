@@ -51,7 +51,7 @@ export const getAttendancesByCode = async (req, res) => {
 };
 
 export const createAttendances = async (req, res) => {
-  const { contactId, name, city, ticketCode, checkInAt, numberOfPeople, checkOutAt, remark, typeOfAttendance } = req.body;
+  const { contactId, name, city, ticketCode, checkInAt, numberOfPeople, checkOutAt, remark, typeOfAttendance, isVIP } = req.body;
   // console.log(req.body);
   try {
     await Attendances.create({
@@ -64,6 +64,7 @@ export const createAttendances = async (req, res) => {
       checkOutAt: checkOutAt,
       remark: remark,
       typeOfAttendance: typeOfAttendance,
+      isVIP: isVIP,
     });
     res.json({ message: "New Attendance has been created" });
   } catch (error) {
@@ -88,7 +89,7 @@ export const updateAttendances = async (req, res) => {
   // console.log(req.user);
   // const decoded = jwt.decode(token, process.env.ACCESS_TOKEN_SECRET);
 
-  const { contactId, name, city, ticketCode, checkInAt, numberOfPeople, checkOutAt, remark, typeOfAttendance, nameOfficer, asOfficer } = req.body;
+  const { contactId, name, city, ticketCode, checkInAt, numberOfPeople, checkOutAt, remark, typeOfAttendance, nameOfficer, asOfficer, isVIP } = req.body;
   const id = req.params.id;
   // console.log(req.params.id);
   // console.log(req.body);
@@ -104,6 +105,7 @@ export const updateAttendances = async (req, res) => {
         checkOutAt: checkOutAt,
         remark: remark,
         typeOfAttendance: typeOfAttendance,
+        isVIP: isVIP,
       },
       {
         where: { id: id },
@@ -160,7 +162,7 @@ export const deleteAttendance = async (req, res) => {
 };
 
 export const invitedCheckIn = async (req, res) => {
-  const { contactId, name, city, ticketCode, numberOfPeople, remark, typeOfAttendance, nameOfficer, asOfficer, expectedNumberOfSouvenir } = req.body;
+  const { contactId, name, city, ticketCode, numberOfPeople, remark, typeOfAttendance, nameOfficer, asOfficer, expectedNumberOfSouvenir, isVIP } = req.body;
   // console.log(req.body);
   try {
     await Attendances.create({
@@ -169,11 +171,13 @@ export const invitedCheckIn = async (req, res) => {
       city: city,
       ticketCode: ticketCode,
       checkInAt: new Date().toISOString(),
+      checkInCounter: asOfficer,
       numberOfPeople: numberOfPeople,
       remark: remark,
       typeOfAttendance: typeOfAttendance,
       stateOfAttendance: "check-in",
       expectedNumberOfSouvenir: expectedNumberOfSouvenir,
+      isVIP: isVIP,
     });
 
     let payload = {
@@ -187,6 +191,7 @@ export const invitedCheckIn = async (req, res) => {
       remark: remark,
       typeOfAttendance: typeOfAttendance,
       stateOfAttendance: "check-in",
+      isVIP: isVIP,
     };
     // res.json({ message: "New Attendance has been Check-in", payload });
     res.json(payload);

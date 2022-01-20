@@ -24,6 +24,9 @@ const Attendances = db.define(
     checkInAt: {
       type: DataTypes.DATE,
     },
+    checkInCounter: {
+      type: DataTypes.STRING(20),
+    },
     numberOfPeople: {
       type: DataTypes.INTEGER(1),
     },
@@ -44,6 +47,11 @@ const Attendances = db.define(
     },
     typeOfAttendance: {
       type: DataTypes.STRING(10),
+    },
+    isVIP: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
   },
   {

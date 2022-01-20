@@ -13,9 +13,9 @@ Content-Type: application/json
 #     "confPassword": "1234"
 # }
 {
-    "name": "Aprilia Rahma Kusumastuti",
-    "as": "admin-1",
-    "email": "april@mail.com",
+    "name": "Muhammad Chandra Kirana",
+    "as": "checkout-1",
+    "email": "chandra@mail.com",
     "password": "1234",
     "confPassword": "1234"
 }

@@ -12,6 +12,7 @@ export const getPrint = async (req, res) => {
       foreignKey: "contactId",
     });
     const contacts = await Contacts.findAll({
+      order: [["updatedAt", "DESC"]],
       include: Tickets,
       // raw: true,
       // joinTableAttributes: [Tickets],

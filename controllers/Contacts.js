@@ -4,27 +4,34 @@ import Contacts from "../models/ContactModels.js";
 import Souvenir from "../models/SouvenirModels.js";
 import moment from "moment";
 import Tickets from "../models/TicketModels.js";
+import Distributed from "../models/DistributedModels.js";
 
 export const getContacts = async (req, res) => {
   try {
-    Contacts.hasMany(Souvenir, {
+    Contacts.hasMany(Distributed, {
       foreignKey: "contactId",
     });
     Contacts.hasMany(Tickets, {
       foreignKey: "contactId",
     });
-    Souvenir.belongsTo(Contacts, {
+    Distributed.belongsTo(Contacts, {
       foreignKey: "contactId",
     });
     Tickets.belongsTo(Contacts, {
       foreignKey: "contactId",
     });
+    Contacts.hasMany(Distributed, {
+      foreignKey: "contactId",
+    });
+    Distributed.belongsTo(Contacts, {
+      foreignKey: "contactId",
+    });
     const contacts = await Contacts.findAll({
-      order: [["id", "ASC"]],
-      include: [
-        { model: Souvenir, attributes: ["expectedNumberOfSouvenir", "actuallyNumberOfSouvenir", "remarks"] },
-        { model: Tickets, attributes: ["ticketCode", "linkInvitation"] },
-      ],
+      // where: {
+      //   organization: "Pertamina",
+      // },
+      order: [["updatedAt", "DESC"]],
+      include: [{ model: Tickets, attributes: ["ticketCode", "linkInvitation"] }, { model: Distributed }],
     });
     res.json(contacts);
     console.log(`${moment().local().format("HH:mm:ss")} [CONTACTS] GET Data ALL`);

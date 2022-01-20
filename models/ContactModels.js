@@ -30,6 +30,9 @@ const Contacts = db.define(
     city: {
       type: DataTypes.STRING(30),
     },
+    imgUrl: {
+      type: DataTypes.TEXT,
+    },
   },
   {
     freezeTableName: true,

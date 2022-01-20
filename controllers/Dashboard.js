@@ -9,6 +9,7 @@ import Messages from "../models/MessageModels.js";
 import Attendances from "../models/AttendancesModels.js";
 import moment from "moment";
 import Configuration from "../models/ConfigurationModels.js";
+import Distributed from "../models/DistributedModels.js";
 
 export const Dashboard = async (req, res) => {
   const slug = req.params.slug;
@@ -41,7 +42,7 @@ export const Dashboard = async (req, res) => {
 
     // Get lastAttendance
     const lastAttendances = await Attendances.findAll({
-      limit: 5,
+      limit: 10,
       order: [["createdAt", "DESC"]],
     });
 
@@ -50,7 +51,7 @@ export const Dashboard = async (req, res) => {
       where: {
         stateOfAttendance: "check-out",
       },
-      limit: 5,
+      limit: 10,
       order: [["updatedAt", "DESC"]],
     });
 
@@ -85,6 +86,25 @@ export const Dashboard = async (req, res) => {
     // Count contact Organization
     const countContactsOrganization = await Contacts.count({
       group: ["organization"],
+    });
+
+    // Count Distributed Organization
+    const countDistributed = await Distributed.count({});
+    // Count Distributed Done
+    const countDistributedDone = await Distributed.count({
+      where: {
+        remarks: "done",
+      },
+    });
+
+    // Count Distributed Done
+    const countInvitationType = await Distributed.count({
+      group: ["invitationType"],
+    });
+
+    // Count Distributed Line
+    const countDistributionLine = await Distributed.count({
+      group: ["distributionLine"],
     });
 
     // Count contact Male
@@ -126,6 +146,10 @@ export const Dashboard = async (req, res) => {
     const payload = {
       totalContacts: countContacts,
       totalTickets: countTickets,
+      totalDistributed: countDistributed,
+      totalDistributedDone: countDistributedDone,
+      countInvitationType: countInvitationType,
+      countDistributionLine: countDistributionLine,
       countContactsCity: countContactsCity,
       countContactsOrganization: countContactsOrganization,
       countTicketsRelationshipCode: countTicketsRelationshipCode,

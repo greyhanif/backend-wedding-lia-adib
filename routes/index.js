@@ -17,6 +17,7 @@ import { getGallery, getGalleryById, updateGallery, deleteGallery, createGallery
 import { injectMetaVisitor } from "../controllers/InjectMeta.js";
 import { createConfiguration, deleteConfiguration, getConfiguration, getConfigurationByProperty, updateConfiguration } from "../controllers/Configuration.js";
 import { getRecap } from "../controllers/Recap.js";
+import { createDistributed, createOrupdateDistributed, deleteDistributed, getDistributed, getDistributedById, updateDistributed } from "../controllers/Distributed.js";
 // import { getRe } from "../controllers/Dashboard.js";
 
 const router = express.Router();
@@ -38,6 +39,14 @@ router.get("/configuration/:property", getConfigurationByProperty);
 router.post("/configuration", createConfiguration);
 router.put("/configuration/:id", updateConfiguration);
 router.delete("/configuration/:id", deleteConfiguration);
+
+//DISTRIBUTED
+router.get("/distributed", getDistributed);
+router.get("/distributed/:id", getDistributedById);
+router.post("/distributed", createDistributed);
+router.put("/distributed/:id", updateDistributed);
+router.delete("/distributed/:id", deleteDistributed);
+router.put("/distributed-upsert/:code", createOrupdateDistributed);
 
 // // contact
 router.get("/contacts", verifyToken, getContacts);
